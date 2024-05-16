@@ -1,6 +1,6 @@
 
 
-from vehiculo import Vehiculo
+from clases.vehiculo import Vehiculo
 
 
 class Automovil(Vehiculo): #clase Automovil
@@ -16,6 +16,9 @@ class Automovil(Vehiculo): #clase Automovil
   #método frena
   def frena(self):
     self.velocidad=self.velocidad-self.aceleracion
+  #metodo que devuelve los datos para Automovil
+  def datos(self):
+    return f" Este es un vehículo de Tipo Automovil y tiene {self.ruedas}"
 
 coche=Automovil("amarillo", "Audi", 50, 50)
 

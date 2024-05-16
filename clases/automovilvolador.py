@@ -1,4 +1,6 @@
-from automovil import Automovil
+
+from clases.automovil import Automovil
+
 
 class AutomovilVolador(Automovil):
   ruedas=6
@@ -9,6 +11,11 @@ class AutomovilVolador(Automovil):
     self.esta_volando=True
   def frena(self):
     self.esta_volando=False
+  def datos(self):
+    return f" Este vehículo es de tipo Automovil Volador y tiene {self.ruedas}"
     
 automovilVoladors=AutomovilVolador("verde","Audi",50,50)
 print(automovilVoladors.ruedas)
+
+
+
