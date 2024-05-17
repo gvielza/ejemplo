@@ -31,7 +31,7 @@ print(datos_vehiculo(auto=auto_ej))
 auto_v=AutomovilVolador("azul", "Audi", 50,50)
 print(datos_vehiculo(auto=auto_v))
 
-print("conectar a la bd ")
+print("*******conectar a la bd ******* ")
 conexion=sqlite3.connect("base_datos/datos.db")
 cursor=conexion.cursor()
 cursor.execute('''CREATE TABLE IF NOT EXISTS vehiculo(id INTEGER PRIMARY KEY AUTOINCREMENT,
@@ -39,9 +39,17 @@ anno INTEGER,
 modelo TEXT)''')
 conexion.commit()
 
-vehiculo=Vehiculo(2020,"A4")
+vehiculo=Vehiculo(2023,"K4")
 cursor.execute('''INSERT INTO vehiculo(anno,modelo) VALUES (?,?)''',
                (vehiculo.get_anno(),
                vehiculo.get_modelo()))
 
+cursor.execute('''SELECT * FROM vehiculo''')
+resultados=cursor.fetchall()
+
+for file in resultados:
+  print(file)  
+
+cursor.close()
+conexion.close()
 
