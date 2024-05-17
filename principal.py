@@ -9,6 +9,7 @@ import sqlite3
 from clases.automovil import Automovil
 from clases.automovilvolador import AutomovilVolador
 from clases.vehiculo import Vehiculo
+from base_datos.conexion import Conexion
 vehiculo1=Vehiculo(2020,"A4")
 print(vehiculo1._anno)
 vehiculo1._anno=2022
@@ -32,24 +33,23 @@ auto_v=AutomovilVolador("azul", "Audi", 50,50)
 print(datos_vehiculo(auto=auto_v))
 
 print("*******conectar a la bd ******* ")
-conexion=sqlite3.connect("base_datos/datos.db")
-cursor=conexion.cursor()
-cursor.execute('''CREATE TABLE IF NOT EXISTS vehiculo(id INTEGER PRIMARY KEY AUTOINCREMENT,
-anno INTEGER,
-modelo TEXT)''')
-conexion.commit()
+#conexion=sqlite3.connect("base_datos/datos.db")
+conexion=Conexion(nombre_bd="base_datos/datos.db")
+#cursor=conexion.cursor()
+conexion.crear_tabla_vehiculos()
 
 vehiculo=Vehiculo(2023,"K4")
-cursor.execute('''INSERT INTO vehiculo(anno,modelo) VALUES (?,?)''',
-               (vehiculo.get_anno(),
-               vehiculo.get_modelo()))
 
-cursor.execute('''SELECT * FROM vehiculo''')
-resultados=cursor.fetchall()
+#conexion.insertar_vehiculo(vehiculo=vehiculo)
 
-for file in resultados:
-  print(file)  
+vehiculos=conexion.obtener_vehiculos()
+for vehiculo in vehiculos:
+  print(vehiculo)
 
-cursor.close()
-conexion.close()
+conexion.eliminar_vehiculo(3)
+print("modificando bd")
+vehiculos=conexion.obtener_vehiculos()
+for vehiculo in vehiculos:
+  print(vehiculo)
 
+conexion.cerrar_conexion()
